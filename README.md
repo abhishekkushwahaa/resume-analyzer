@@ -1,11 +1,11 @@
 # Resume Analyzer
 
-A Node.js backend for resume analysis, integrating MongoDB Cloud, Google Gemini (LLM), JWT authentication, PDF text extraction.
+A Node.js backend for resume analysis, integrating MongoDB Cloud, Gemini (LLM), JWT authentication, PDF text extraction.
 
 ## Features
 
 - **MongoDB Cloud Integration**: Store and manage resumes securely.
-- **Google Gemini (LLM)**: Gemini for resume analysis.
+- **Gemini (LLM)**: Gemini for resume analysis.
 - **JWT Authentication**: Secure user authentication.
 - **PDF Text Extraction**: Extract text from PDF resumes.
 - **Deployment**: Deployed on Vercel.
@@ -14,7 +14,7 @@ A Node.js backend for resume analysis, integrating MongoDB Cloud, Google Gemini 
 
 - Backend: Node.js (Express.js)
 - Database: MongoDB (Cloud)
-- AI Processing: Google Gemini API
+- AI Processing: Gemini API
 - Authentication: JWT
 - PDF Parsing: pdf-parse
 - Deployment: Vercel
@@ -44,16 +44,16 @@ Certainly! Here's the updated and complete **Setup** section for your **Resume A
    Create a `.env` file in the root of your project directory and add the following environment variables:
 
    ```plaintext
-   PORT=5000
+   PORT=3001
    MONGO_URI=mongodb_connection
    JWT_SECRET=jwt_secret_key
-   GOOGLE_API_KEY=google_api_key
+   GEMINI_API_KEY=gemini_api_key
    DEPLOYMENT_URL=deployment_url
    ```
 
    - **MONGO_URI**: Your MongoDB Cloud connection string (from MongoDB Atlas).
    - **JWT_SECRET**: A secure key used to sign and verify JWT tokens.
-   - **GOOGLE_API_KEY**: Your Google API key for interacting with Google Gemini.
+   - **GEMINI_API_KEY**: Your Gemini API key for interacting with Gemini.
    - **VERCEL_DEPLOYMENT_URL**: The URL provided after deploying the app on Vercel.
 
 4. **Start the Application**:
