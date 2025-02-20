@@ -1,5 +1,5 @@
-import { jwt } from "jsonwebtoken";
-import { dotenv } from "dotenv";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -14,6 +14,7 @@ export const authMiddleware = (req, res, next) => {
       process.env.JWT_SECRET
     );
     req.user = decoded;
+    next();
   } catch (err) {
     res.status(401).json({ error: "Invalid token." });
   }
