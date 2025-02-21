@@ -12,7 +12,9 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
-
+app.get("/", (req, res) => {
+  res.send("Resume Analyzer API is running!");
+});
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
