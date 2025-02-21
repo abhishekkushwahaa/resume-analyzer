@@ -45,7 +45,7 @@ Certainly! Here's the updated and complete **Setup** section for your **Resume A
 
    ```plaintext
    PORT=3001
-   MONGO_URI=mongodb_connection
+   MONGO_URI=mongodb_url
    JWT_SECRET=jwt_secret_key
    GEMINI_API_KEY=gemini_api_key
    DEPLOYMENT_URL=deployment_url

@@ -3,6 +3,7 @@ import pdfText from "pdf-text";
 import fetch from "node-fetch";
 import Applicant from "../models/Applicant.js";
 import dotenv from "dotenv";
+import { decryptData, encryptData } from "../utils/encryption.js";
 
 dotenv.config();
 
@@ -74,8 +75,8 @@ export const textFromPdfResume = async (req, res) => {
     }
 
     const applicant = new Applicant({
-      name: applicantData.name || "Not available",
-      email: applicantData.email || "Not available",
+      name: encryptData(applicantData.name) || "Not available",
+      email: encryptData(applicantData.email) || "Not available",
       education: applicantData.education || {
         degree: "Not available",
         branch: "Not available",
@@ -105,12 +106,36 @@ export const textFromPdfResume = async (req, res) => {
 export const searchResume = async (req, res) => {
   try {
     const { name } = req.body;
-    const applicants = await Applicant.find({ name: new RegExp(name, "i") });
+    const applicants = await Applicant.find();
 
-    if (!applicants.length)
+    const decryptedApplicants = applicants
+      .map((applicant) => {
+        try {
+          const decryptedName = decryptData(applicant.name);
+
+          if (!decryptedName.toLowerCase().includes(name.toLowerCase())) {
+            return null;
+          }
+
+          return {
+            name: decryptedName,
+            email: decryptData(applicant.email),
+            education: applicant.education,
+            experience: applicant.experience,
+            skills: applicant.skills,
+            summary: applicant.summary,
+          };
+        } catch (error) {
+          console.error("Decryption error:", error);
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    if (!decryptedApplicants.length)
       return res.status(404).json({ error: "No matching records found" });
 
-    res.status(200).json(applicants);
+    res.status(200).json(decryptedApplicants);
   } catch (error) {
     console.error("Error in searchResume:", error);
     res.status(500).json({ error: error.message });
